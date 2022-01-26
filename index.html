@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Tic Tac Toe</h1>
+    <div id="playerChoice">
+      <h2>Play as</h2>
+      <div>
+        <input type="radio" name="play_as" value="x" id="x" checked> <label for="x">first turn: x</label>
+      </div>
+      <div>
+        <input type="radio" name="play_as" value="o" id="o"> <label for="o">second turn: o</label>
+      </div>
+    </div>
+    <div id="board" data-play-as="x">
+      <svg class="grid-lines" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="466"
+        height="466" viewBox="0 0 466 466">
+        <defs>
+          <style>
+            .grid-line {
+              fill: none;
+              stroke: #368eb0;
+              stroke-width: 9px;
+            }
+          </style>
+        </defs>
+        <g id="svg_1">
+          <line id="l1" class="grid-line" x2="0" transform="translate(233 153.5) rotate(180)"></line>
+          <line id="l2" class="grid-line" x2="0" transform="translate(233 311.5) rotate(180)"></line>
+          <line id="r1" class="grid-line" x2="0" transform="translate(233 153.5)"></line>
+          <line id="r2" class="grid-line" x2="0" transform="translate(233 311.5)"></line>
+          <line id="t1" class="grid-line" x2="0" transform="translate(154 233) rotate(270)"></line>
+          <line id="t2" class="grid-line" x2="0" transform="translate(312 233) rotate(270)"></line>
+          <line id="b1" class="grid-line" x2="0" transform="translate(154 233) rotate(90)"></line>
+          <line id="b2" class="grid-line" x2="0" transform="translate(312 233) rotate(90)"></line>
+        </g>
+      </svg>
+
+      <div class="grid">
+        <div class="cell" data-id="1" data-x="0" data-y="0">
+          <svg class="x" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-line" d="M 10 10 L 80 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+            <path class="x-line" d="M 80 10 L 10 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+          </svg>
+          <svg class="o" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-arc" d="M 5 43a 37 37 0 1 0 74 0a 37 37 0 1 0 -74 0" stroke="#cdc56c" stroke-linecap="round"
+              stroke-width="10px" fill="none" style="stroke-dasharray: 232; stroke-dashoffset: 232"
+              data-stroke-dashoffset="232" />
+          </svg>
+        </div>
+        <div class="cell" data-id="2" data-x="0" data-y="1">
+          <svg class="x" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-line" d="M 10 10 L 80 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+            <path class="x-line" d="M 80 10 L 10 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+          </svg>
+          <svg class="o" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-arc" d="M 5 43a 37 37 0 1 0 74 0a 37 37 0 1 0 -74 0" stroke="#cdc56c" stroke-linecap="round"
+              stroke-width="10px" fill="none" style="stroke-dasharray: 232; stroke-dashoffset: 232"
+              data-stroke-dashoffset="232" />
+          </svg>
+        </div>
+        <div class="cell" data-id="3" data-x="0" data-y="2">
+          <svg class="x" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-line" d="M 10 10 L 80 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+            <path class="x-line" d="M 80 10 L 10 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+          </svg>
+          <svg class="o" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-arc" d="M 5 43a 37 37 0 1 0 74 0a 37 37 0 1 0 -74 0" stroke="#cdc56c" stroke-linecap="round"
+              stroke-width="10px" fill="none" style="stroke-dasharray: 232; stroke-dashoffset: 232"
+              data-stroke-dashoffset="232" />
+          </svg>
+        </div>
+        <div class="cell" data-id="4" data-x="1" data-y="0">
+          <svg class="x" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-line" d="M 10 10 L 80 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+            <path class="x-line" d="M 80 10 L 10 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+          </svg>
+          <svg class="o" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-arc" d="M 5 43a 37 37 0 1 0 74 0a 37 37 0 1 0 -74 0" stroke="#cdc56c" stroke-linecap="round"
+              stroke-width="10px" fill="none" style="stroke-dasharray: 232; stroke-dashoffset: 232"
+              data-stroke-dashoffset="232" />
+          </svg>
+        </div>
+        <div class="cell" data-id="5" data-x="1" data-y="1">
+          <svg class="x" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-line" d="M 10 10 L 80 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+            <path class="x-line" d="M 80 10 L 10 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+          </svg>
+          <svg class="o" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-arc" d="M 5 43a 37 37 0 1 0 74 0a 37 37 0 1 0 -74 0" stroke="#cdc56c" stroke-linecap="round"
+              stroke-width="10px" fill="none" style="stroke-dasharray: 232; stroke-dashoffset: 232"
+              data-stroke-dashoffset="232" />
+          </svg>
+        </div>
+        <div class="cell" data-id="6" data-x="1" data-y="2">
+          <svg class="x" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-line" d="M 10 10 L 80 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+            <path class="x-line" d="M 80 10 L 10 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+          </svg>
+          <svg class="o" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-arc" d="M 5 43a 37 37 0 1 0 74 0a 37 37 0 1 0 -74 0" stroke="#cdc56c" stroke-linecap="round"
+              stroke-width="10px" fill="none" style="stroke-dasharray: 232; stroke-dashoffset: 232"
+              data-stroke-dashoffset="232" />
+          </svg>
+        </div>
+        <div class="cell" data-id="7" data-x="2" data-y="0">
+          <svg class="x" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-line" d="M 10 10 L 80 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+            <path class="x-line" d="M 80 10 L 10 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+          </svg>
+          <svg class="o" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-arc" d="M 5 43a 37 37 0 1 0 74 0a 37 37 0 1 0 -74 0" stroke="#cdc56c" stroke-linecap="round"
+              stroke-width="10px" fill="none" style="stroke-dasharray: 232; stroke-dashoffset: 232"
+              data-stroke-dashoffset="232" />
+          </svg>
+        </div>
+        <div class="cell" data-id="8" data-x="2" data-y="1">
+          <svg class="x" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-line" d="M 10 10 L 80 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+            <path class="x-line" d="M 80 10 L 10 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+          </svg>
+          <svg class="o" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-arc" d="M 5 43a 37 37 0 1 0 74 0a 37 37 0 1 0 -74 0" stroke="#cdc56c" stroke-linecap="round"
+              stroke-width="10px" fill="none" style="stroke-dasharray: 232; stroke-dashoffset: 232"
+              data-stroke-dashoffset="232" />
+          </svg>
+        </div>
+        <div class="cell" data-id="9" data-x="2" data-y="2">
+          <svg class="x" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-line" d="M 10 10 L 80 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+            <path class="x-line" d="M 80 10 L 10 80" stroke="#60e789" stroke-width="10px" stroke-linecap="round"
+              style="stroke-dasharray: 99; stroke-dashoffset: 99" data-stroke-dashoffset="99" />
+          </svg>
+          <svg class="o" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="85"
+            height="85" viewBox="0 0 85 85" style="display: none;">
+            <path class="x-arc" d="M 5 43a 37 37 0 1 0 74 0a 37 37 0 1 0 -74 0" stroke="#cdc56c" stroke-linecap="round"
+              stroke-width="10px" fill="none" style="stroke-dasharray: 232; stroke-dashoffset: 232"
+              data-stroke-dashoffset="232" />
+          </svg>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:center">
+        <button id="restartButton">Restart</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
