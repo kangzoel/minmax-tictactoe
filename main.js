@@ -128,25 +128,25 @@ function computerMove() {
   turn(move.x, move.y, ai())
 
   setTimeout(() => {
-    if (checkWinner() !== null) {
-      announceWinner()
-    } else {
-      canMove = true
-      $playAs.toggleClass('active')
-    }
+    canMove = true
+    $playAs.toggleClass('active')
   }, 500)
 }
 
 function turn(x, y, who) {
-  if (board[x][y] === '') {
-    board[x][y] = who
+  board[x][y] = who
 
-    show($(`[data-x="${x}"][data-y=${y}]`).data('id'), who)
+  show($(`[data-x="${x}"][data-y=${y}]`).data('id'), who)
+
+  if (checkWinner() !== null) {
+    setTimeout(() => {
+      announceWinner()
+    }, 600)
   }
 }
 
 function equals3(a, b, c) {
-  return a === b && b === c
+  return a === b && b === c && a !== ''
 }
 
 function checkWinner() {
@@ -171,15 +171,11 @@ function checkWinner() {
     winner = board[1][1]
   }
 
-  if (winner === '') {
-    winner = null
+  if (winner === null && possibleMoves().length == 0) {
+    winner = 'tie'
   }
 
-  if (winner === null && possibleMoves().length == 0) {
-    return 'tie'
-  } else {
-    return winner
-  }
+  return winner
 }
 
 function toggleTurn(who = null) {
@@ -206,30 +202,18 @@ $cells.on('click', function () {
 
   const { x, y } = $(this).data()
 
-  const winner = checkWinner()
-
-  if (canMove && winner === null) {
+  if (canMove && checkWinner() === null && board[x][y] === '') {
     canMove = false
 
     turn(x, y, human())
 
-    if (checkWinner() == null) {
-      setTimeout(() => {
-        $playAs.toggleClass('active')
-      }, 200)
+    if (checkWinner() === null) {
+      $playAs.toggleClass('active')
 
       setTimeout(() => {
         computerMove()
-      }, 500)
-    } else {
-      canMove = true
+      }, 400)
     }
-  }
-
-  if (checkWinner() !== null) {
-    setTimeout(() => {
-      announceWinner()
-    }, 500)
   }
 })
 
