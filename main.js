@@ -1,5 +1,6 @@
 import anime from 'animejs/lib/anime.es.js'
 import $ from 'jquery/dist/jquery.slim.js'
+import { random, reverse } from 'lodash'
 
 const $cells = $('.cell')
 const $restartButton = $('#restartButton')
@@ -54,7 +55,7 @@ function possibleMoves() {
     }
   }
 
-  return moves
+  return firstTurn ? moves : reverse(moves)
 }
 
 function show(cellId, what) {
@@ -243,7 +244,7 @@ $playAs.on('click', function () {
 
     $('#playerChoice').addClass('disabled')
 
-    computerMove()
+    turn(random(0, 2), random(0, 2), ai())
   }
 })
 
