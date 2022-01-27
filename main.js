@@ -8,7 +8,16 @@ const $x = $('.x')
 const $o = $('.o')
 const $paths = $('path')
 
-let playAs = 'x'
+let firstTurn = true
+
+function human() {
+  return firstTurn ? 'x' : 'o'
+}
+
+function ai() {
+  return firstTurn ? 'o' : 'x'
+}
+
 let canMove = true
 let gameStarted = false
 
@@ -18,6 +27,12 @@ let board = [
   ['', '', ''],
 ]
 
+const scoring = () => ({
+  [ai()]: 1,
+  [human()]: -1,
+  tie: 0,
+})
+
 function init() {
   // draw grid lines
   anime({
@@ -26,16 +41,6 @@ function init() {
     duration: 300,
     easing: 'easeOutQuad',
   })
-}
-
-const scoring = () => ({
-  x: 1,
-  o: -1,
-  tie: 0,
-})
-
-function computer() {
-  return playAs === 'x' ? 'o' : 'x'
 }
 
 function possibleMoves() {
@@ -88,7 +93,7 @@ function minimax(board, depth, isMaximizing) {
   if (isMaximizing) {
     let bestScore = -Infinity
     for (const { x, y } of possibleMoves()) {
-      board[x][y] = playAs == 'x' ? playAs : computer()
+      board[x][y] = ai()
       const score = minimax(board, depth + 1, false)
       board[x][y] = ''
       bestScore = Math.max(score, bestScore)
@@ -97,7 +102,7 @@ function minimax(board, depth, isMaximizing) {
   } else {
     let bestScore = Infinity
     for (const { x, y } of possibleMoves()) {
-      board[x][y] = playAs == 'x' ? computer() : playAs
+      board[x][y] = human()
       const score = minimax(board, depth + 1, true)
       board[x][y] = ''
       bestScore = Math.min(score, bestScore)
@@ -107,28 +112,20 @@ function minimax(board, depth, isMaximizing) {
 }
 
 function computerMove() {
-  let bestScore = playAs == 'x' ? Infinity : -Infinity
+  let bestScore = -Infinity
   let move
 
   for (const { x, y } of possibleMoves()) {
-    board[x][y] = computer()
-    const score = minimax(board, 0, playAs == 'x')
-    console.log(x, y, score)
+    board[x][y] = ai()
+    const score = minimax(board, 0, false)
     board[x][y] = ''
-    if (playAs == 'x') {
-      if (score < bestScore) {
-        bestScore = score
-        move = { x, y }
-      }
-    } else {
-      if (score > bestScore) {
-        bestScore = score
-        move = { x, y }
-      }
+    if (score > bestScore) {
+      bestScore = score
+      move = { x, y }
     }
   }
 
-  turn(move.x, move.y, playAs === 'x' ? 'o' : 'x')
+  turn(move.x, move.y, ai())
 
   setTimeout(() => {
     if (checkWinner() !== null) {
@@ -214,7 +211,7 @@ $cells.on('click', function () {
   if (canMove && winner === null) {
     canMove = false
 
-    turn(x, y, playAs)
+    turn(x, y, human())
 
     if (checkWinner() == null) {
       setTimeout(() => {
@@ -229,13 +226,19 @@ $cells.on('click', function () {
     }
   }
 
-  if (checkWinner() !== null) announceWinner()
+  if (checkWinner() !== null) {
+    setTimeout(() => {
+      announceWinner()
+    }, 500)
+  }
 })
 
 $playAs.on('click', function () {
-  playAs = $(this).data('play-as')
+  const playAs = $(this).data('play-as')
 
-  if (playAs == 'o' && !gameStarted) {
+  firstTurn = playAs == 'x'
+
+  if (!firstTurn && !gameStarted) {
     gameStarted = true
 
     $('#playerChoice').addClass('disabled')
@@ -245,8 +248,7 @@ $playAs.on('click', function () {
 })
 
 $restartButton.on('click', function () {
-  playAs = 'x'
-
+  firstTurn = true
   canMove = true
   gameStarted = false
 
