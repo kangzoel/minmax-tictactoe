@@ -47,6 +47,44 @@ h2 {
   margin: 30px 0px 40px;
 }
 
+#choices {
+  display: flex;
+  justify-content: stretch;
+  user-select: none;
+}
+
+#playerChoice.disabled .choice {
+  cursor: not-allowed;
+}
+
+.choice {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  padding: 10px;
+  border: 1px solid white;
+  transition: 300;
+  cursor: pointer;
+}
+
+.choice.active {
+  color: #257391;
+  background: #fff;
+}
+
+.choice polygon {
+  fill: #fff;
+}
+
+.choice.active polygon {
+  fill: #257391;
+}
+
+.choice.active path {
+  stroke: #257391;
+}
+
 #restartButton {
   color: #d1eaf1;
   padding: 10px 10px;

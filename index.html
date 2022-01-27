@@ -14,14 +14,25 @@
     <h1>Tic Tac Toe</h1>
     <div id="playerChoice">
       <h2>Play as</h2>
-      <div>
-        <input type="radio" name="play_as" value="x" id="x" checked> <label for="x">first turn: x</label>
-      </div>
-      <div>
-        <input type="radio" name="play_as" value="o" id="o"> <label for="o">second turn: o</label>
+      <div id="choices">
+        <div class="choice active" id="choiceX" data-play-as="x">
+          First Turn
+          <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 17.828 17.828">
+            <polygon
+              points="2.828 17.828 8.914 11.742 15 17.828 17.828 15 11.742 8.914 17.828 2.828 15 0 8.914 6.086 2.828 0 0 2.828 6.085 8.914 0 15 2.828 17.828" />
+          </svg>
+        </div>
+        <div class="choice" id="choiceO" data-play-as="o">
+          Second Turn
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"
+            viewBox="0 0 85 85">
+            <path class="x-arc" d="M 8 43a 35 35 0 1 0 70 0a 35 35 0 1 0 -70 0" stroke="#ffffff" stroke-width="15"
+              fill="none" />
+          </svg>
+        </div>
       </div>
     </div>
-    <div id="board" data-play-as="x">
+    <div id="board">
       <svg class="grid-lines" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="466"
         height="466" viewBox="0 0 466 466">
         <defs>

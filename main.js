@@ -3,13 +3,14 @@ import $ from 'jquery/dist/jquery.slim.js'
 
 const $cells = $('.cell')
 const $restartButton = $('#restartButton')
-const $playAs = $('[name=play_as]')
+const $playAs = $('.choice')
 const $x = $('.x')
 const $o = $('.o')
 const $paths = $('path')
 
 let playAs = 'x'
 let canMove = true
+let gameStarted = false
 
 let board = [
   ['', '', ''],
@@ -87,7 +88,7 @@ function minimax(board, depth, isMaximizing) {
   if (isMaximizing) {
     let bestScore = -Infinity
     for (const { x, y } of possibleMoves()) {
-      board[x][y] = playAs == 'x' ? 'x' : 'o'
+      board[x][y] = playAs == 'x' ? playAs : computer()
       const score = minimax(board, depth + 1, false)
       board[x][y] = ''
       bestScore = Math.max(score, bestScore)
@@ -96,7 +97,7 @@ function minimax(board, depth, isMaximizing) {
   } else {
     let bestScore = Infinity
     for (const { x, y } of possibleMoves()) {
-      board[x][y] = playAs == 'x' ? 'o' : 'x'
+      board[x][y] = playAs == 'x' ? computer() : playAs
       const score = minimax(board, depth + 1, true)
       board[x][y] = ''
       bestScore = Math.min(score, bestScore)
@@ -112,6 +113,7 @@ function computerMove() {
   for (const { x, y } of possibleMoves()) {
     board[x][y] = computer()
     const score = minimax(board, 0, playAs == 'x')
+    console.log(x, y, score)
     board[x][y] = ''
     if (playAs == 'x') {
       if (score < bestScore) {
@@ -128,15 +130,13 @@ function computerMove() {
 
   turn(move.x, move.y, playAs === 'x' ? 'o' : 'x')
 
-  const humanIndex = playAs === 'x' ? 0 : 1
-  const computerIndex = humanIndex === 0 ? 1 : 0
-
-  $playAs[computerIndex].checked = true
-
   setTimeout(() => {
-    canMove = true
-
-    $playAs[humanIndex].checked = true
+    if (checkWinner() !== null) {
+      announceWinner()
+    } else {
+      canMove = true
+      $playAs.toggleClass('active')
+    }
   }, 500)
 }
 
@@ -185,19 +185,42 @@ function checkWinner() {
   }
 }
 
+function toggleTurn(who = null) {
+  if (who !== null) {
+    const up = who.toUpperCase()
+    const no = up == 'X' ? 'O' : 'X'
+
+    $(`#choice${up}`).addClass('active')
+    $(`#choice${no}`).removeClass('active')
+  } else {
+    $('#choiceX, #choiceO').toggleClass('active')
+  }
+}
+
+function announceWinner() {
+  alert(`winner: ${checkWinner()}`)
+  canMove = false
+}
+
 $cells.on('click', function () {
-  $playAs.attr('disabled', '')
+  gameStarted = true
+
+  $('#playerChoice').addClass('disabled')
 
   const { x, y } = $(this).data()
 
   const winner = checkWinner()
 
   if (canMove && winner === null) {
-    turn(x, y, playAs)
-
     canMove = false
 
+    turn(x, y, playAs)
+
     if (checkWinner() == null) {
+      setTimeout(() => {
+        $playAs.toggleClass('active')
+      }, 200)
+
       setTimeout(() => {
         computerMove()
       }, 500)
@@ -205,13 +228,17 @@ $cells.on('click', function () {
       canMove = true
     }
   }
+
+  if (checkWinner() !== null) announceWinner()
 })
 
 $playAs.on('click', function () {
-  playAs = $(this).val()
+  playAs = $(this).data('play-as')
 
-  if (playAs == 'o') {
-    $playAs.attr('disabled', '')
+  if (playAs == 'o' && !gameStarted) {
+    gameStarted = true
+
+    $('#playerChoice').addClass('disabled')
 
     computerMove()
   }
@@ -219,8 +246,13 @@ $playAs.on('click', function () {
 
 $restartButton.on('click', function () {
   playAs = 'x'
-  $playAs.removeAttr('disabled')
-  $playAs[0].checked = true
+
+  canMove = true
+  gameStarted = false
+
+  $('#playerChoice').removeClass('disabled')
+
+  toggleTurn('x')
 
   board = [
     ['', '', ''],
