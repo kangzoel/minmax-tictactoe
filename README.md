@@ -16,4 +16,4 @@ Development server: `yarn dev`
 
 ## Demo
 
-https://kangzoel.github.io/minmax-tictactoe
+<a href="https://kangzoel.github.io/minmax-tictactoe" target="_blank">https://kangzoel.github.io/minmax-tictactoe</a>
