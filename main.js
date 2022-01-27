@@ -255,3 +255,15 @@ $restartButton.on('click', function () {
 })
 
 init()
+
+function responsiveBoard() {
+  $('.grid-lines').height($('.grid-lines').width())
+  $('.grid').height($('.grid').width())
+  $('.cell').height($('.cell').width())
+}
+
+window.onresize = function () {
+  responsiveBoard()
+}
+
+responsiveBoard()
