@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "animejs": "^3.2.1",
-    "jquery": "^3.6.0",
-    "lodash": "^4.17.21"
+    "jquery": "^3.6.0"
   }
 }
